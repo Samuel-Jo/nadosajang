@@ -59,15 +59,22 @@
             questionsDiv.appendChild(questionDiv);
         });
 
-        function submitAnswers() {
+         function submitAnswers() {
             let totalScore = 0;
             questions.forEach((_, index) => {
                 const selectedValue = document.querySelector(`input[name="question${index}"]:checked`).value;
                 totalScore += scores[selectedValue];
             });
-            const resultDiv = document.getElementById('resultDiv');
-            // ... (점수에 따른 결과 텍스트를 설정하는 코드를 여기에 추가하세요)
-            resultDiv.innerHTML = "총 점수: " + totalScore;
+
+            if (totalScore >= 80) {
+                window.location.href = "https://bundangai.space/score80-100";
+            } else if (totalScore >= 60) {
+                window.location.href = "https://bundangai.space/score60-79";
+            } else if (totalScore >= 40) {
+                window.location.href = "https://bundangai.space/score40-59";
+            } else {
+                window.location.href = "https://bundangai.space/score0-39";
+            }
         }
     </script>
 </body>

@@ -15,7 +15,7 @@
     <div id="resultDiv"></div>
 
     <script>
-        const questions = [   " 1. 난 건강에 자신있다.",
+        const questions = [ " 1. 난 건강에 자신있다.",
    " 2. 나에겐 꿈과 목표가 있다.",
    " 3. 시간 계획을 세워 일을 한다.",
    " 4. 내가 하고싶은 일 하는 일을 다른 사람에게 조리있게 설명할 수 있다.",
@@ -34,8 +34,7 @@
    " 17.현재 트렌드와 유행이 무엇인지 안다.",
    " 18.손익계산,손익분기점,원가계산,총매출액,순이익이 무엇인지 안다.",
    " 19.모르는 사람하고도 금장 친해지고 잘 얘기한다.",
-   " 20.동창회나 동문회 조기축구회 등 모임이 참여를 한다." 
-        ];
+   " 20.동창회나 동문회 조기축구회 등 모임이 참여를 한다."  ];
 
         const choices = ["그렇다", "그런편이다", "아니다"];
         const scores = {
@@ -47,41 +46,46 @@
         const questionsDiv = document.getElementById('questionsDiv');
         questions.forEach((question, index) => {
             const questionDiv = document.createElement('div');
-            questionDiv.innerHTML = (index + 1) + ". " + question;
+            const questionText = document.createElement('div');
+            questionText.innerHTML = (index + 1) + ". " + question;
+            questionDiv.appendChild(questionText);
+
+            const choicesDiv = document.createElement('div');
             choices.forEach(choice => {
                 const radioButton = document.createElement('input');
                 radioButton.type = 'radio';
                 radioButton.name = 'question' + index;
                 radioButton.value = choice;
-                questionDiv.appendChild(radioButton);
-                questionDiv.appendChild(document.createTextNode(choice));
+                choicesDiv.appendChild(radioButton);
+                choicesDiv.appendChild(document.createTextNode(choice));
             });
+            questionDiv.appendChild(choicesDiv);
             questionsDiv.appendChild(questionDiv);
         });
 
-   function submitAnswers() {
-    let totalScore = 0;
-    questions.forEach((_, index) => {
-        const selectedValue = document.querySelector(`input[name="question${index}"]:checked`).value;
-        totalScore += scores[selectedValue];
-    });
+        function submitAnswers() {
+            let totalScore = 0;
+            questions.forEach((_, index) => {
+                const selectedValue = document.querySelector(`input[name="question${index}"]:checked`).value;
+                totalScore += scores[selectedValue];
+            });
 
-    let redirectUrl = "";
-    if (totalScore >= 80) {
-        redirectUrl = "score80-100.html";
-    } else if (totalScore >= 60) {
-        redirectUrl = "score60-79.html";
-    } else if (totalScore >= 40) {
-        redirectUrl = "score40-59.html";
-    } else {
-        redirectUrl = "score0-39.html";
-    }
+            let redirectUrl = "";
+            if (totalScore >= 80) {
+                redirectUrl = "score80-100.html";
+            } else if (totalScore >= 60) {
+                redirectUrl = "score60-79.html";
+            } else if (totalScore >= 40) {
+                redirectUrl = "score40-59.html";
+            } else {
+                redirectUrl = "score0-39.html";
+            }
 
-    const isConfirmed = confirm("결과 페이지로 이동하시겠습니까?");
-    if (isConfirmed) {
-        window.location.href = redirectUrl;
-    }
-}
+            const isConfirmed = confirm("결과 페이지로 이동하시겠습니까?");
+            if (isConfirmed) {
+                window.location.href = redirectUrl;
+            }
+        }
     </script>
 </body>
 </html>

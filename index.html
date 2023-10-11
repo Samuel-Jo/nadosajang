@@ -44,31 +44,22 @@
         };
 
         const questionsDiv = document.getElementById('questionsDiv');
-        questions.forEach((question, index) => {
-            const questionDiv = document.createElement('div');
-            const questionText = document.createElement('div');
-            questionText.innerHTML = (index + 1) + ". " + question;
-            questionDiv.appendChild(questionText);
+questions.forEach((question, index) => {
+    const questionDiv = document.createElement('div');
+    const questionText = document.createElement('div');
+    questionText.innerHTML = (index + 1) + ". " + question;
+    questionDiv.appendChild(questionText);
 
-            const choicesDiv = document.createElement('div');
-            choices.forEach(choice => {
-                const radioButton = document.createElement('input');
-                radioButton.type = 'radio';
-                radioButton.name = 'question' + index;
-                radioButton.value = choice;
-                choicesDiv.appendChild(radioButton);
-                choicesDiv.appendChild(document.createTextNode(choice));
-            });
-            questionDiv.appendChild(choicesDiv);
-            questionsDiv.appendChild(questionDiv);
-        });
-
-        function submitAnswers() {
-            let totalScore = 0;
-            questions.forEach((_, index) => {
-                const selectedValue = document.querySelector(`input[name="question${index}"]:checked`).value;
-                totalScore += scores[selectedValue];
-            });
+    choices.forEach(choice => {
+        const radioButton = document.createElement('input');
+        radioButton.type = 'radio';
+        radioButton.name = 'question' + index;
+        radioButton.value = choice;
+        questionDiv.appendChild(radioButton);
+        questionDiv.appendChild(document.createTextNode(choice));
+    });
+    questionsDiv.appendChild(questionDiv);
+});
 
             let redirectUrl = "";
             if (totalScore >= 80) {

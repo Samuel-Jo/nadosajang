@@ -59,7 +59,7 @@
             questionsDiv.appendChild(questionDiv);
         });
 
-         function submitAnswers() {
+   function submitAnswers() {
     let totalScore = 0;
     questions.forEach((_, index) => {
         const selectedValue = document.querySelector(`input[name="question${index}"]:checked`).value;
@@ -68,16 +68,15 @@
 
     let redirectUrl = "";
     if (totalScore >= 80) {
-        redirectUrl = "https://bundangai.space/score80-100";
+        redirectUrl = "score80-100.html";
     } else if (totalScore >= 60) {
-        redirectUrl = "https://bundangai.space/score60-79";
+        redirectUrl = "score60-79.html";
     } else if (totalScore >= 40) {
-        redirectUrl = "https://bundangai.space/score40-59";
+        redirectUrl = "score40-59.html";
     } else {
-        redirectUrl = "https://bundangai.space/score0-39";
+        redirectUrl = "score0-39.html";
     }
 
-    // 사용자에게 리다이렉트를 확인하는 메시지 표시
     const isConfirmed = confirm("결과 페이지로 이동하시겠습니까?");
     if (isConfirmed) {
         window.location.href = redirectUrl;

@@ -60,22 +60,29 @@
         });
 
          function submitAnswers() {
-            let totalScore = 0;
-            questions.forEach((_, index) => {
-                const selectedValue = document.querySelector(`input[name="question${index}"]:checked`).value;
-                totalScore += scores[selectedValue];
-            });
+    let totalScore = 0;
+    questions.forEach((_, index) => {
+        const selectedValue = document.querySelector(`input[name="question${index}"]:checked`).value;
+        totalScore += scores[selectedValue];
+    });
 
-            if (totalScore >= 80) {
-                window.location.href = "https://bundangai.space/score80-100";
-            } else if (totalScore >= 60) {
-                window.location.href = "https://bundangai.space/score60-79";
-            } else if (totalScore >= 40) {
-                window.location.href = "https://bundangai.space/score40-59";
-            } else {
-                window.location.href = "https://bundangai.space/score0-39";
-            }
-        }
+    let redirectUrl = "";
+    if (totalScore >= 80) {
+        redirectUrl = "https://bundangai.space/score80-100";
+    } else if (totalScore >= 60) {
+        redirectUrl = "https://bundangai.space/score60-79";
+    } else if (totalScore >= 40) {
+        redirectUrl = "https://bundangai.space/score40-59";
+    } else {
+        redirectUrl = "https://bundangai.space/score0-39";
+    }
+
+    // 사용자에게 리다이렉트를 확인하는 메시지 표시
+    const isConfirmed = confirm("결과 페이지로 이동하시겠습니까?");
+    if (isConfirmed) {
+        window.location.href = redirectUrl;
+    }
+}
     </script>
 </body>
 </html>

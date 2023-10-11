@@ -70,20 +70,27 @@
             questionsDiv.appendChild(questionDiv);
         });
 
-            let redirectUrl = "";
-            if (totalScore >= 80) {
-                redirectUrl = "score80-100.html";
-            } else if (totalScore >= 60) {
-                redirectUrl = "score60-79.html";
-            } else if (totalScore >= 40) {
-                redirectUrl = "score40-59.html";
-            } else {
-                redirectUrl = "score0-39.html";
-            }
+    function submitAnswers() {
+        let totalScore = 0;
+        questions.forEach((_, index) => {
+            const selectedValue = document.querySelector(`input[name="question${index}"]:checked`).value;
+            totalScore += scores[selectedValue];
+        });
 
-            const isConfirmed = confirm("결과 페이지로 이동하시겠습니까?");
-            if (isConfirmed) {
-                window.location.href = redirectUrl;
+        let redirectUrl = "";
+        if (totalScore >= 80) {
+            redirectUrl = "score80-100.html";
+        } else if (totalScore >= 60) {
+            redirectUrl = "score60-79.html";
+        } else if (totalScore >= 40) {
+            redirectUrl = "score40-59.html";
+        } else {
+            redirectUrl = "score0-39.html";
+        }
+
+        const isConfirmed = confirm("결과 페이지로 이동하시겠습니까?");
+        if (isConfirmed) {
+            window.location.href = redirectUrl;
         }
     </script>
 </body>

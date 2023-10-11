@@ -8,58 +8,67 @@
 </head>
 <body>
     <div>
-        <label for="name">이름:</label>
-        <input type="text" id="name" placeholder="이름을 입력해주세요.">
+        이름: <input type="text" id="nameInput" placeholder="이름을 입력해주세요.">
     </div>
-    <div id="questions"></div>
-    <button id="submit">제출하기</button>
-    <div id="result"></div>
-</body>
-</html>
+    <div id="questionsDiv"></div>
+    <button onclick="submitAnswers()">제출하기</button>
+    <div id="resultDiv"></div>
 
-<script>
-    $(document).ready(function() {
-        const questions = [
-            /* ... (위의 질문 목록을 여기에 넣습니다) ... */
+    <script>
+        const questions = [   " 1. 난 건강에 자신있다.",
+   " 2. 나에겐 꿈과 목표가 있다.",
+   " 3. 시간 계획을 세워 일을 한다.",
+   " 4. 내가 하고싶은 일 하는 일을 다른 사람에게 조리있게 설명할 수 있다.",
+   " 5. 친하게 지내는 친구나 이웃이 많다.",
+   " 6. 새로운 일에 호기심이 많다.",
+   " 7.창업을 위해 정보를 얻는 방법을 알고 있고 도와 줄 사람도 있다.",
+   " 8.나는 긍정적 사고를 가진 사람이다.",
+   " 9.나는 적극적이고 열정이 있는 사람이다.",
+   " 10.나는 약속을 잘 지킨다.",
+   " 11.다른 사람이 힘들어 할 때 많이 도와주었다.",
+   " 12.성공한 친구를 보면 샘이 난다.",
+   " 13.다른 사람의 말을 잘 경청한다.",
+   " 14.가계부 차계부 등을 잘 정리한다.",
+   " 15.창업을 하면 온 가족이 지원을 해 줄 것이다.",
+   " 16.창업 경영 마케팅을 공부해 본 적이 있다.",
+   " 17.현재 트렌드와 유행이 무엇인지 안다.",
+   " 18.손익계산,손익분기점,원가계산,총매출액,순이익이 무엇인지 안다.",
+   " 19.모르는 사람하고도 금장 친해지고 잘 얘기한다.",
+   " 20.동창회나 동문회 조기축구회 등 모임이 참여를 한다." 
         ];
+
+        const choices = ["그렇다", "그런편이다", "아니다"];
         const scores = {
             "그렇다": 5,
             "그런편이다": 3,
             "아니다": 0
         };
 
-        // 질문 생성
+        const questionsDiv = document.getElementById('questionsDiv');
         questions.forEach((question, index) => {
-            $('#questions').append(`
-                <div>
-                    <label>${question}</label>
-                    <select id="q${index}">
-                        <option value="5">그렇다</option>
-                        <option value="3">그런편이다</option>
-                        <option value="0">아니다</option>
-                    </select>
-                </div>
-            `);
+            const questionDiv = document.createElement('div');
+            questionDiv.innerHTML = (index + 1) + ". " + question;
+            choices.forEach(choice => {
+                const radioButton = document.createElement('input');
+                radioButton.type = 'radio';
+                radioButton.name = 'question' + index;
+                radioButton.value = choice;
+                questionDiv.appendChild(radioButton);
+                questionDiv.appendChild(document.createTextNode(choice));
+            });
+            questionsDiv.appendChild(questionDiv);
         });
 
-        // 제출 버튼 클릭 이벤트
-        $('#submit').click(function() {
+        function submitAnswers() {
             let totalScore = 0;
             questions.forEach((_, index) => {
-                totalScore += parseInt($(`#q${index}`).val());
+                const selectedValue = document.querySelector(`input[name="question${index}"]:checked`).value;
+                totalScore += scores[selectedValue];
             });
-
-            let resultText = '';
-            if (totalScore >= 80) {
-                resultText = "훌륭한 사장님 ...";
-            } else if (totalScore >= 60) {
-                resultText = "준비된 사장님 ...";
-            } else if (totalScore >= 40) {
-                resultText = "준비가 필요한 사장님 ...";
-            } else {
-                resultText = "도움이 필요한 사장님 ...";
-            }
-            $('#result').text(resultText);
-        });
-    });
-</script>
+            const resultDiv = document.getElementById('resultDiv');
+            // ... (점수에 따른 결과 텍스트를 설정하는 코드를 여기에 추가하세요)
+            resultDiv.innerHTML = "총 점수: " + totalScore;
+        }
+    </script>
+</body>
+</html>

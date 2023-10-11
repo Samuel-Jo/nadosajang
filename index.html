@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>나도사장님</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+    <div>
+        <label for="name">이름:</label>
+        <input type="text" id="name" placeholder="이름을 입력해주세요.">
+    </div>
+    <div id="questions"></div>
+    <button id="submit">제출하기</button>
+    <div id="result"></div>
+</body>
+</html>
+
+<script>
+    $(document).ready(function() {
+        const questions = [
+            /* ... (위의 질문 목록을 여기에 넣습니다) ... */
+        ];
+        const scores = {
+            "그렇다": 5,
+            "그런편이다": 3,
+            "아니다": 0
+        };
+
+        // 질문 생성
+        questions.forEach((question, index) => {
+            $('#questions').append(`
+                <div>
+                    <label>${question}</label>
+                    <select id="q${index}">
+                        <option value="5">그렇다</option>
+                        <option value="3">그런편이다</option>
+                        <option value="0">아니다</option>
+                    </select>
+                </div>
+            `);
+        });
+
+        // 제출 버튼 클릭 이벤트
+        $('#submit').click(function() {
+            let totalScore = 0;
+            questions.forEach((_, index) => {
+                totalScore += parseInt($(`#q${index}`).val());
+            });
+
+            let resultText = '';
+            if (totalScore >= 80) {
+                resultText = "훌륭한 사장님 ...";
+            } else if (totalScore >= 60) {
+                resultText = "준비된 사장님 ...";
+            } else if (totalScore >= 40) {
+                resultText = "준비가 필요한 사장님 ...";
+            } else {
+                resultText = "도움이 필요한 사장님 ...";
+            }
+            $('#result').text(resultText);
+        });
+    });
+</script>
